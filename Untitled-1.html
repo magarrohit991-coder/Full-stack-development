@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rohit Thapa Soti — ePortfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --yellow:#F5C518;--yellow-dim:#c49d0e;
+  --dark:#0a0a0a;--dark2:#111;--dark3:#1a1a1a;--dark4:#222;
+  --gray:#888;--gray2:#555;--light:#f0f0f0;--white:#fff;
+  --fd:'Bebas Neue',sans-serif;--fb:'Barlow',sans-serif;
+  --fc:'Barlow Condensed',sans-serif;--fm:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--light);font-family:var(--fb);font-size:16px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-bottom:.5px solid var(--dark4)}
+.nav-logo{font-family:var(--fc);font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--white);white-space:nowrap}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links button{font-family:var(--fb);font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);background:none;border:none;cursor:pointer;padding:0 .9rem;height:64px;transition:color .2s,border-bottom .2s;border-bottom:2px solid transparent;white-space:nowrap}
+.nav-links button:hover{color:var(--white)}
+.nav-links button.active{color:var(--yellow);border-bottom:2px solid var(--yellow)}
+.nav-cta{font-family:var(--fc);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--yellow);border:none;padding:10px 18px;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--yellow-dim)}
+
+/* PAGE */
+.page{display:none;min-height:100vh;padding-top:64px}
+.page.active{display:block}
+
+/* HERO */
+#page-home{display:flex;align-items:center;min-height:100vh;padding:64px 3rem 0}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%;max-width:1280px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:1.5rem}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--yellow);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-title{font-family:var(--fd);font-size:clamp(64px,8vw,110px);line-height:.92;letter-spacing:.02em;color:var(--white);margin-bottom:1.5rem}
+.hero-title .dim{color:var(--dark4)}
+.hero-desc{font-size:15px;font-weight:300;color:var(--gray);line-height:1.75;max-width:400px;margin-bottom:2.5rem}
+.hero-actions{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.btn-primary{font-family:var(--fc);font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);background:var(--yellow);border:none;padding:14px 28px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:background .2s,transform .15s}
+.btn-primary:hover{background:var(--yellow-dim);transform:translateY(-2px)}
+.btn-ghost{font-family:var(--fc);font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);background:transparent;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:color .2s}
+.btn-ghost::before{content:'⊙';font-size:16px}
+.btn-ghost:hover{color:var(--white)}
+.hero-right{display:flex;flex-direction:column;align-items:center;gap:1.5rem;position:relative;padding:2rem 0}
+.hero-img-wrap{width:280px;height:280px;border-radius:50%;background:var(--dark3);border:1px solid var(--dark4);overflow:hidden}
+.hero-img-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:72px;color:var(--dark4);background:linear-gradient(135deg,#1a1a1a,#111)}
+.stat-card{background:var(--dark3);border:.5px solid var(--dark4);padding:14px 20px;position:absolute}
+.stat-card.top-right{top:0;right:-20px;text-align:right}
+.stat-card.bottom-left{bottom:0;left:-20px}
+.stat-num{font-family:var(--fd);font-size:28px;letter-spacing:.02em;color:var(--white);display:block}
+.stat-label{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray2)}
+.badge-pill{display:inline-flex;align-items:center;gap:6px;background:var(--dark3);border:.5px solid var(--dark4);padding:6px 12px;font-family:var(--fm);font-size:11px;color:var(--gray)}
+.badge-pill::before{content:'';width:8px;height:8px;border-radius:50%;background:#22c55e}
+
+/* INNER */
+.inner{padding:3.5rem 3rem 5rem;max-width:1280px;margin:0 auto}
+.section-label{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);margin-bottom:.75rem;display:flex;align-items:center;gap:10px}
+.section-label::before{content:'';width:24px;height:1px;background:var(--yellow)}
+.section-title{font-family:var(--fd);font-size:clamp(44px,5.5vw,72px);line-height:.95;letter-spacing:.02em;color:var(--white);margin-bottom:1rem}
+.section-desc{font-size:15px;font-weight:300;color:var(--gray);line-height:1.8;max-width:820px;margin-bottom:2.5rem}
+.hdivider{border:none;border-top:.5px solid var(--dark4);margin:2.5rem 0}
+.tag{font-family:var(--fm);font-size:11px;background:var(--dark4);color:var(--yellow);padding:4px 10px;border-radius:2px}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:.75rem}
+
+/* DEMO LABEL */
+.demo-label{background:var(--dark3);border-bottom:1px solid var(--dark4);padding:10px 16px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);display:flex;align-items:center;gap:8px}
+.demo-label .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);flex-shrink:0}
+
+/* CODE */
+.code-block{background:#0d0d0d;border:1px solid var(--dark4);padding:1.5rem;font-family:var(--fm);font-size:13px;color:#ccc;line-height:1.9;overflow-x:auto;margin-top:0}
+.kw{color:var(--yellow)}.attr{color:#7dd3fc}.val{color:#86efac}.tn{color:#f9a8d4}.cm{color:var(--gray2);font-style:italic}
+
+/* EXPLAIN BLOCK */
+.explain-block{background:var(--dark2);border:1px solid var(--dark4);margin-bottom:1.75rem;overflow:hidden}
+.explain-header{padding:1rem 1.5rem;border-bottom:.5px solid var(--dark4);display:flex;align-items:center;gap:12px}
+.explain-header h4{font-family:var(--fc);font-size:17px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--white)}
+.explain-body{padding:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.explain-body.full{grid-template-columns:1fr}
+.explain-text p{font-size:14px;font-weight:300;color:var(--gray);line-height:1.85;margin-bottom:.85rem}
+.explain-text p:last-child{margin-bottom:0}
+.explain-text strong{color:var(--white);font-weight:500}
+.explain-demo{background:var(--dark3);border:1px solid var(--dark4);padding:1.25rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;min-height:130px}
+
+/* EXAMPLE BOX */
+.example-box{border:1px solid var(--dark4);overflow:hidden;margin-top:1.25rem}
+.example-tabs{display:flex;border-bottom:1px solid var(--dark4)}
+.example-tab{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:9px 16px;background:var(--dark3);border:none;color:var(--gray);cursor:pointer;border-right:1px solid var(--dark4);transition:all .2s}
+.example-tab.active{background:var(--dark2);color:var(--yellow)}
+.example-pane{display:none;padding:1.25rem}
+.example-pane.active{display:block}
+.example-pane.preview{background:var(--dark3);display:none;align-items:center;justify-content:center;min-height:100px;padding:1.5rem}
+.example-pane.preview.active{display:flex;flex-direction:column;gap:.75rem}
+
+/* INFO GRID */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--dark4);border:1px solid var(--dark4);margin-bottom:2rem}
+.info-card{background:var(--dark2);padding:1.75rem;transition:background .2s}
+.info-card:hover{background:var(--dark3)}
+.info-card-num{font-family:var(--fd);font-size:32px;color:var(--yellow);margin-bottom:.75rem}
+.info-card h3{font-family:var(--fc);font-size:18px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--white);margin-bottom:.6rem}
+.info-card p{font-size:13.5px;font-weight:300;color:var(--gray);line-height:1.75}
+
+/* LAYER DIAGRAM */
+.layer-diagram{display:flex;gap:0;border:1px solid var(--dark4);overflow:hidden;margin-bottom:2rem}
+.layer{flex:1;padding:1.5rem 1rem;border-right:1px solid var(--dark4);text-align:center;background:var(--dark2);transition:background .2s}
+.layer:hover{background:var(--dark3)}
+.layer:last-child{border-right:none}
+.layer-num{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:.4rem}
+.layer-name{font-family:var(--fc);font-size:15px;font-weight:600;color:var(--white);margin-bottom:.3rem}
+.layer p{font-size:12px;color:var(--gray2);line-height:1.5}
+
+/* QUOTE */
+.quote-block{border-left:3px solid var(--yellow);padding:.75rem 1.25rem;background:var(--dark3);margin:1.25rem 0}
+.quote-block p{font-family:var(--fc);font-size:16px;font-weight:600;letter-spacing:.03em;color:var(--white);line-height:1.5}
+.quote-block span{font-family:var(--fm);font-size:11px;color:var(--gray2);margin-top:.3rem;display:block}
+
+/* CSS DEMOS */
+.flex-row{display:flex;gap:8px}
+.flex-row div{width:38px;height:38px;background:var(--yellow);transition:transform .2s,opacity .2s}
+.flex-row div:hover{transform:scale(1.2);opacity:1!important}
+.grid-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:160px}
+.grid-demo div{height:28px;background:var(--dark4)}
+.grid-demo div:first-child{background:var(--yellow)}
+.var-bars{display:flex;flex-direction:column;gap:6px;width:100%;max-width:240px}
+.var-bar{height:8px;border-radius:2px;background:var(--yellow)}
+
+/* BS */
+.bs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;margin-bottom:2rem}
+.bs-card{background:var(--dark2);border:1px solid var(--dark4);padding:1.75rem;transition:border-color .2s,transform .2s}
+.bs-card:hover{border-color:var(--yellow);transform:translateY(-3px)}
+.bs-card-icon{font-family:var(--fd);font-size:26px;color:var(--yellow);margin-bottom:.9rem}
+.bs-card h3{font-family:var(--fc);font-size:17px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--white);margin-bottom:.6rem}
+.bs-card p{font-size:13.5px;font-weight:300;color:var(--gray);margin-bottom:.75rem;line-height:1.75}
+.col-row{display:flex;gap:4px;margin-top:.5rem}
+.col-blk{background:var(--dark4);height:22px;border-radius:2px}
+.bs-btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.bs-btn{font-family:var(--fc);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border:1px solid;cursor:pointer;transition:all .2s}
+.bs-btn.pri{background:var(--yellow);color:var(--dark);border-color:var(--yellow)}
+.bs-btn.out{background:transparent;color:var(--gray);border-color:var(--dark4)}
+.bs-btn.dan{background:transparent;color:#ef4444;border-color:#ef4444}
+
+/* JS DEMOS */
+.js-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
+.js-demo{background:var(--dark2);border:1px solid var(--dark4);overflow:hidden}
+.js-preview{padding:1.75rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;min-height:190px}
+#counter-val{font-family:var(--fd);font-size:58px;color:var(--yellow);letter-spacing:.02em;line-height:1}
+.counter-btns{display:flex;gap:8px}
+.counter-btns button{width:40px;height:40px;background:var(--dark4);border:1px solid var(--dark3);color:var(--white);font-size:20px;cursor:pointer;transition:background .2s}
+.counter-btns button:hover{background:var(--yellow);color:var(--dark)}
+#todo-list{list-style:none;width:100%}
+#todo-list li{font-size:13px;color:var(--gray);padding:7px 0;border-bottom:.5px solid var(--dark4);display:flex;align-items:center;gap:8px;cursor:pointer}
+#todo-list li::before{content:'□';color:var(--yellow);font-size:15px}
+#todo-list li.done{text-decoration:line-through;opacity:.35}
+#todo-list li.done::before{content:'■'}
+.todo-row{display:flex;gap:6px;width:100%;margin-top:.5rem}
+.todo-row input{flex:1;background:var(--dark4);border:1px solid var(--dark3);color:var(--white);padding:8px 12px;font-family:var(--fb);font-size:13px;outline:none}
+.todo-row input:focus{border-color:var(--yellow)}
+.todo-row button{background:var(--yellow);border:none;color:var(--dark);padding:8px 14px;font-family:var(--fc);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+#color-box{width:72px;height:72px;background:var(--yellow);transition:all .4s ease}
+.color-btns{display:flex;gap:6px}
+.color-btns button{width:26px;height:26px;border:none;cursor:pointer;transition:transform .15s}
+.color-btns button:hover{transform:scale(1.25)}
+#fetch-result{font-family:var(--fm);font-size:12px;color:var(--gray);text-align:center;line-height:1.9}
+.fetch-name{font-size:20px;color:var(--white);font-family:var(--fc);font-weight:600;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:4px}
+.fetch-btn{background:transparent;border:1px solid var(--yellow);color:var(--yellow);padding:9px 18px;font-family:var(--fc);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.fetch-btn:hover{background:var(--yellow);color:var(--dark)}
+
+/* SUB HEADING */
+.sub-heading{font-family:var(--fc);font-size:20px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--white);margin:2rem 0 1rem;display:flex;align-items:center;gap:10px}
+.sub-heading::after{content:'';flex:1;height:.5px;background:var(--dark4)}
+
+/* FOOTER */
+footer{border-top:.5px solid var(--dark4);padding:1.75rem 3rem;text-align:center}
+footer .logo{font-family:var(--fc);font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--white)}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:var(--dark4)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Rohit Thapa Soti</div>
+  <ul class="nav-links">
+    <li><button class="active" onclick="showPage('home',this)">Home</button></li>
+    <li><button onclick="showPage('fullstack',this)">Full Stack Dev</button></li>
+    <li><button onclick="showPage('html',this)">HTML</button></li>
+    <li><button onclick="showPage('css',this)">CSS</button></li>
+    <li><button onclick="showPage('bootstrap',this)">Bootstrap</button></li>
+    <li><button onclick="showPage('js',this)">JavaScript</button></li>
+  </ul>
+  <a href="mailto:rohit@email.com" class="nav-cta">Get in Touch →</a>
+</nav>
+
+<!-- ═══ HOME ═══ -->
+<div id="page-home" class="page active" style="display:flex;align-items:center;min-height:100vh;padding:64px 3rem 0">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">ePortfolio — Full Stack Development</div>
+      <h1 class="hero-title">CRAFTING<br><span class="dim">DIGITAL</span><br>FUTURES</h1>
+      <p class="hero-desc">A comprehensive portfolio demonstrating my understanding of full stack web development — covering HTML, CSS, Bootstrap, and dynamic JavaScript with real working examples.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('fullstack',document.querySelectorAll('.nav-links button')[1])">Explore Portfolio →</button>
+        <button class="btn-ghost" onclick="showPage('js',document.querySelectorAll('.nav-links button')[5])">View Live Demos</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stat-card top-right"><span class="stat-num">5+</span><span class="stat-label">Sections</span></div>
+      <div class="hero-img-wrap"><div class="hero-img-inner">RTS</div></div>
+      <div class="badge-pill">Clean Code · Architecture</div>
+      <div class="stat-card bottom-left"><span class="stat-num">100%</span><span class="stat-label">Commitment</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FULL STACK ═══ -->
+<div id="page-fullstack" class="page">
+<div class="inner">
+  <div class="section-label">01 — Overview</div>
+  <h2 class="section-title">WHAT IS FULL STACK DEVELOPMENT?</h2>
+  <p class="section-desc">Full stack development means working across <strong style="color:var(--white)">all layers</strong> of a web application — from what users see in their browser (front-end) to the server, database, and infrastructure behind the scenes (back-end). A full stack developer can design, build, and deploy a complete web application independently.</p>
+
+  <div class="quote-block">
+    <p>"A full stack developer understands both sides of the web — the experience users have, and the logic that makes it possible."</p>
+    <span>— Core principle of modern web engineering</span>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card"><div class="info-card-num">01</div><h3>Front-End</h3><p>Everything the user sees — buttons, forms, layouts, animations. Built with HTML, CSS, JavaScript and frameworks like React or Vue. The goal is a fast, accessible, and beautiful interface.</p><div class="tag-row"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">React</span></div></div>
+    <div class="info-card"><div class="info-card-num">02</div><h3>Back-End</h3><p>The server-side logic — handles requests, processes data, manages authentication, and talks to the database. Built with Node.js, Python, PHP or Java and frameworks like Express or Django.</p><div class="tag-row"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">Python</span><span class="tag">REST API</span></div></div>
+    <div class="info-card"><div class="info-card-num">03</div><h3>Database</h3><p>Stores all application data persistently. Relational databases (MySQL, PostgreSQL) use tables and SQL queries. NoSQL databases (MongoDB) use flexible document-based storage.</p><div class="tag-row"><span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">PostgreSQL</span></div></div>
+    <div class="info-card"><div class="info-card-num">04</div><h3>APIs</h3><p>APIs allow front-end and back-end to communicate. REST APIs use HTTP methods (GET, POST, PUT, DELETE) to transfer JSON data. GraphQL lets clients request exactly what they need.</p><div class="tag-row"><span class="tag">REST</span><span class="tag">GraphQL</span><span class="tag">JSON</span><span class="tag">HTTP</span></div></div>
+    <div class="info-card"><div class="info-card-num">05</div><h3>DevOps</h3><p>Once built, apps must be deployed and maintained. Git tracks code changes, Docker containerises the app, and cloud platforms like AWS or Netlify host it. CI/CD automates testing and deployment.</p><div class="tag-row"><span class="tag">Git</span><span class="tag">Docker</span><span class="tag">AWS</span><span class="tag">CI/CD</span></div></div>
+    <div class="info-card"><div class="info-card-num">06</div><h3>Security</h3><p>Developers must guard against SQL injection, XSS, and CSRF attacks. HTTPS encrypts data in transit, JWT handles authentication, and input validation prevents malicious data from entering the system.</p><div class="tag-row"><span class="tag">HTTPS</span><span class="tag">JWT</span><span class="tag">Validation</span></div></div>
+  </div>
+
+  <div class="sub-heading">The 5-Layer Architecture</div>
+  <div class="layer-diagram">
+    <div class="layer"><div class="layer-num">Layer 1</div><div class="layer-name">Browser</div><p>HTML/CSS/JS renders the UI. User clicks and forms happen here.</p></div>
+    <div class="layer"><div class="layer-num">Layer 2</div><div class="layer-name">Front-End App</div><p>React/Vue components manage state and call the API.</p></div>
+    <div class="layer"><div class="layer-num">Layer 3</div><div class="layer-name">Back-End Server</div><p>Node/Express handles routes, logic, and DB queries.</p></div>
+    <div class="layer"><div class="layer-num">Layer 4</div><div class="layer-name">Database</div><p>MySQL/MongoDB stores all persistent data.</p></div>
+    <div class="layer"><div class="layer-num">Layer 5</div><div class="layer-name">Cloud / DevOps</div><p>AWS/Docker hosts and scales. Git + CI/CD deploys automatically.</p></div>
+  </div>
+
+  <div class="sub-heading">Real-World Example — How a Login Works</div>
+  <div class="explain-block">
+    <div class="explain-body full">
+      <div class="explain-text">
+        <p><strong>Step 1 — Front-End:</strong> The user fills in an email and password in an HTML form and clicks "Login". JavaScript captures the form data and sends it as a POST request via <code style="color:var(--yellow);font-family:var(--fm)">fetch('/api/login')</code>.</p>
+        <p><strong>Step 2 — Back-End:</strong> The Node.js/Express server receives the request, validates the input, and queries the database: <code style="color:var(--yellow);font-family:var(--fm)">SELECT * FROM users WHERE email = ?</code>.</p>
+        <p><strong>Step 3 — Database:</strong> MySQL returns the matching user record. The server compares the hashed password using bcrypt.</p>
+        <p><strong>Step 4 — Response:</strong> If the password matches, the server creates a JWT token and sends it back. The front-end stores the token and redirects the user to their dashboard — all without a full page reload.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ HTML ═══ -->
+<div id="page-html" class="page">
+<div class="inner">
+  <div class="section-label">02 — Markup Language</div>
+  <h2 class="section-title">HTML</h2>
+  <p class="section-desc">HyperText Markup Language is the foundation of every webpage. It provides structure and meaning through <strong style="color:var(--white)">elements and tags</strong>. HTML tells the browser what type of content is on the page — a heading, paragraph, image, button, or form. Without HTML, there is no webpage.</p>
+
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>Tags, Elements & Attributes</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p>HTML uses <strong>tags</strong> wrapped in angle brackets: <code style="color:var(--yellow);font-family:var(--fm)">&lt;p&gt;</code>. Most tags come in pairs — an opening tag and closing tag. The content between them is the element. For example: <code style="color:var(--yellow);font-family:var(--fm)">&lt;h1&gt;Hello&lt;/h1&gt;</code> creates a top-level heading.</p>
+        <p><strong>Attributes</strong> add extra information inside the opening tag. <code style="color:var(--yellow);font-family:var(--fm)">&lt;a href="url"&gt;Link&lt;/a&gt;</code> uses <code style="color:var(--yellow);font-family:var(--fm)">href</code> to define the destination. <code style="color:var(--yellow);font-family:var(--fm)">&lt;img src="photo.jpg" alt="Me"&gt;</code> embeds an image with a text description for screen readers.</p>
+        <p>Every HTML page has a standard skeleton: <code style="color:var(--yellow);font-family:var(--fm)">&lt;!DOCTYPE html&gt;</code> declares the version, <code style="color:var(--yellow);font-family:var(--fm)">&lt;head&gt;</code> holds metadata, and <code style="color:var(--yellow);font-family:var(--fm)">&lt;body&gt;</code> holds everything the user sees.</p>
+      </div>
+      <div class="explain-demo">
+        <div style="font-family:var(--fm);font-size:12px;line-height:2.1;color:#ccc;width:100%">
+          <div><span style="color:var(--yellow)">&lt;h1&gt;</span> Page Title <span style="color:var(--yellow)">&lt;/h1&gt;</span></div>
+          <div><span style="color:var(--yellow)">&lt;p&gt;</span> Paragraph text here. <span style="color:var(--yellow)">&lt;/p&gt;</span></div>
+          <div><span style="color:var(--yellow)">&lt;a</span> <span style="color:#7dd3fc">href</span>=<span style="color:#86efac">"#"</span><span style="color:var(--yellow)">&gt;</span>Click me<span style="color:var(--yellow)">&lt;/a&gt;</span></div>
+          <div><span style="color:var(--yellow)">&lt;img</span> <span style="color:#7dd3fc">src</span>=<span style="color:#86efac">"photo.jpg"</span> <span style="color:#7dd3fc">alt</span>=<span style="color:#86efac">"Me"</span><span style="color:var(--yellow)">&gt;</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">Example — Semantic Page Structure</div>
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>Semantic HTML5 Elements</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p><strong>Semantic HTML</strong> uses elements that carry meaning — not just visual styling. Instead of wrapping everything in generic <code style="color:var(--yellow);font-family:var(--fm)">&lt;div&gt;</code> tags, semantic HTML uses purpose-built elements that describe the content's role.</p>
+        <p><code style="color:var(--yellow);font-family:var(--fm)">&lt;header&gt;</code> — the top of the page or section.<br>
+        <code style="color:var(--yellow);font-family:var(--fm)">&lt;nav&gt;</code> — navigation links.<br>
+        <code style="color:var(--yellow);font-family:var(--fm)">&lt;main&gt;</code> — the primary content area.<br>
+        <code style="color:var(--yellow);font-family:var(--fm)">&lt;article&gt;</code> — a self-contained piece of content.<br>
+        <code style="color:var(--yellow);font-family:var(--fm)">&lt;aside&gt;</code> — supplementary content.<br>
+        <code style="color:var(--yellow);font-family:var(--fm)">&lt;footer&gt;</code> — the bottom of the page.</p>
+        <p>Benefits: better <strong>SEO</strong> (search engines understand content), better <strong>accessibility</strong> (screen readers navigate by landmarks), and better <strong>maintainability</strong> (developers understand structure at a glance).</p>
+      </div>
+      <div class="explain-demo">
+        <div style="font-family:var(--fm);font-size:12px;line-height:2;color:#ccc;width:100%">
+          <div style="color:var(--yellow)">&lt;header&gt;</div>
+          <div style="padding-left:1rem;color:var(--gray)">&lt;nav&gt; Home | About | Contact &lt;/nav&gt;</div>
+          <div style="color:var(--yellow)">&lt;/header&gt;</div>
+          <div style="color:var(--yellow)">&lt;main&gt;</div>
+          <div style="padding-left:1rem;color:var(--gray)">&lt;article&gt; Blog post content &lt;/article&gt;</div>
+          <div style="padding-left:1rem;color:var(--gray)">&lt;aside&gt; Related links &lt;/aside&gt;</div>
+          <div style="color:var(--yellow)">&lt;/main&gt;</div>
+          <div style="color:var(--yellow)">&lt;footer&gt;</div>
+          <div style="padding-left:1rem;color:var(--gray)">&amp;copy; 2025 Rohit Thapa Soti</div>
+          <div style="color:var(--yellow)">&lt;/footer&gt;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">Example — HTML Form with Validation</div>
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>HTML5 Forms — Collecting User Input</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p>Forms allow users to send data to a server. HTML5 introduced built-in validation: <code style="color:var(--yellow);font-family:var(--fm)">type="email"</code> validates email format, <code style="color:var(--yellow);font-family:var(--fm)">required</code> prevents empty submission, <code style="color:var(--yellow);font-family:var(--fm)">minlength</code> enforces minimum length, and <code style="color:var(--yellow);font-family:var(--fm)">placeholder</code> shows hint text — all without any JavaScript.</p>
+        <p>Every input must have a matching <code style="color:var(--yellow);font-family:var(--fm)">&lt;label&gt;</code> linked via the <code style="color:var(--yellow);font-family:var(--fm)">for</code> attribute. This improves accessibility — clicking the label focuses the input — and helps screen readers describe the field to visually impaired users.</p>
+        <p>The <code style="color:var(--yellow);font-family:var(--fm)">method</code> attribute on <code style="color:var(--yellow);font-family:var(--fm)">&lt;form&gt;</code> defines how data is sent: <code style="color:var(--yellow);font-family:var(--fm)">GET</code> appends data to the URL (good for searches), <code style="color:var(--yellow);font-family:var(--fm)">POST</code> sends it in the request body (good for sensitive data like passwords).</p>
+      </div>
+      <div class="explain-demo">
+        <div style="width:100%;display:flex;flex-direction:column;gap:8px">
+          <label style="font-family:var(--fm);font-size:10px;color:var(--gray);letter-spacing:.1em;text-transform:uppercase">Full Name *</label>
+          <input type="text" placeholder="Rohit Thapa Soti" style="background:var(--dark4);border:1px solid var(--dark3);color:var(--white);padding:9px 12px;font-family:var(--fb);font-size:13px;outline:none;width:100%">
+          <label style="font-family:var(--fm);font-size:10px;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;margin-top:4px">Email Address *</label>
+          <input type="email" placeholder="rohit@email.com" style="background:var(--dark4);border:1px solid var(--dark3);color:var(--white);padding:9px 12px;font-family:var(--fb);font-size:13px;outline:none;width:100%">
+          <label style="font-family:var(--fm);font-size:10px;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;margin-top:4px">Role</label>
+          <select style="background:var(--dark4);border:1px solid var(--dark3);color:var(--gray);padding:9px 12px;font-family:var(--fb);font-size:13px;outline:none;width:100%">
+            <option>Junior Developer</option>
+            <option>Full Stack Developer</option>
+            <option>Front-End Developer</option>
+          </select>
+          <button style="background:var(--yellow);border:none;color:var(--dark);padding:10px;font-family:var(--fc);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:4px">Submit Application →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">HTML Code Reference</div>
+  <div class="code-block">
+<span class="cm">&lt;!-- Complete HTML5 page skeleton --&gt;</span>
+<span class="kw">&lt;!</span>DOCTYPE html<span class="kw">&gt;</span>
+<span class="kw">&lt;</span><span class="tn">html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="kw">&gt;</span>
+<span class="kw">&lt;</span><span class="tn">head</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;</span><span class="tn">meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;</span><span class="tn">meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1.0"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;</span><span class="tn">title</span><span class="kw">&gt;</span>My Portfolio<span class="kw">&lt;/</span><span class="tn">title</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/</span><span class="tn">head</span><span class="kw">&gt;</span>
+<span class="kw">&lt;</span><span class="tn">body</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;</span><span class="tn">header</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;</span><span class="tn">nav</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;</span><span class="tn">a</span> <span class="attr">href</span>=<span class="val">"#home"</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/</span><span class="tn">a</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;</span><span class="tn">a</span> <span class="attr">href</span>=<span class="val">"#projects"</span><span class="kw">&gt;</span>Projects<span class="kw">&lt;/</span><span class="tn">a</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;/</span><span class="tn">nav</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;/</span><span class="tn">header</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;</span><span class="tn">main</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;</span><span class="tn">article</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;</span><span class="tn">h1</span><span class="kw">&gt;</span>Welcome to My Portfolio<span class="kw">&lt;/</span><span class="tn">h1</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;</span><span class="tn">p</span><span class="kw">&gt;</span>I am a junior full stack developer.<span class="kw">&lt;/</span><span class="tn">p</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;/</span><span class="tn">article</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;/</span><span class="tn">main</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;</span><span class="tn">footer</span><span class="kw">&gt;</span>&amp;copy; 2025 Rohit Thapa Soti<span class="kw">&lt;/</span><span class="tn">footer</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/</span><span class="tn">body</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/</span><span class="tn">html</span><span class="kw">&gt;</span>
+  </div>
+</div>
+</div>
+
+<!-- ═══ CSS ═══ -->
+<div id="page-css" class="page">
+<div class="inner">
+  <div class="section-label">03 — Styling & Layout</div>
+  <h2 class="section-title">CSS</h2>
+  <p class="section-desc">Cascading Style Sheets (CSS) controls the visual presentation of HTML. While HTML creates structure, CSS transforms it into a beautifully designed, responsive interface. CSS controls <strong style="color:var(--white)">colours, typography, spacing, layout, animations</strong>, and how content adapts across screen sizes.</p>
+
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>Selectors, Properties & the Cascade</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p>A CSS rule has two parts: a <strong>selector</strong> (which element to target) and a <strong>declaration block</strong> (what styles to apply). For example: <code style="color:var(--yellow);font-family:var(--fm)">h1 { color: white; font-size: 48px; }</code> makes all h1s white and large.</p>
+        <p>The "Cascading" means when multiple rules target the same element, the browser resolves conflicts using <strong>specificity</strong> (more specific selectors win), <strong>source order</strong> (later rules override earlier ones), and <strong>importance</strong> (<code style="color:var(--yellow);font-family:var(--fm)">!important</code> overrides all).</p>
+        <p>CSS is applied three ways: <strong>Inline</strong> (<code style="color:var(--yellow);font-family:var(--fm)">style=""</code> on an element), <strong>Internal</strong> (a <code style="color:var(--yellow);font-family:var(--fm)">&lt;style&gt;</code> block in <code style="color:var(--yellow);font-family:var(--fm)">&lt;head&gt;</code>), or <strong>External</strong> (a separate <code style="color:var(--yellow);font-family:var(--fm)">.css</code> file linked via <code style="color:var(--yellow);font-family:var(--fm)">&lt;link&gt;</code>). External is the professional standard.</p>
+      </div>
+      <div class="explain-demo">
+        <div style="font-family:var(--fm);font-size:12px;line-height:2;color:#ccc;width:100%">
+          <div><span style="color:var(--yellow)">h1</span> { <span style="color:#7dd3fc">color</span>: <span style="color:#86efac">white</span>; }</div>
+          <div><span style="color:var(--yellow)">.card</span> { <span style="color:#7dd3fc">background</span>: <span style="color:#86efac">#111</span>; }</div>
+          <div><span style="color:var(--yellow)">#logo</span> { <span style="color:#7dd3fc">font-size</span>: <span style="color:#86efac">24px</span>; }</div>
+          <div><span style="color:var(--yellow)">a:hover</span> { <span style="color:#7dd3fc">color</span>: <span style="color:#86efac">#F5C518</span>; }</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">Example — Flexbox Layout</div>
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>Flexbox — One-Dimensional Layout</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p><strong>Flexbox</strong> arranges items in a single row or column. Set <code style="color:var(--yellow);font-family:var(--fm)">display: flex</code> on a container and its children become flex items that flow side by side automatically.</p>
+        <p>Key properties: <code style="color:var(--yellow);font-family:var(--fm)">justify-content</code> aligns items horizontally (center, space-between, flex-end), <code style="color:var(--yellow);font-family:var(--fm)">align-items</code> aligns vertically, <code style="color:var(--yellow);font-family:var(--fm)">gap</code> sets spacing, and <code style="color:var(--yellow);font-family:var(--fm)">flex-wrap: wrap</code> allows items to wrap to the next line on small screens.</p>
+        <p><strong>Example use cases:</strong> navigation bars, button groups, card rows, centering content in a container — any layout where items sit side by side.</p>
+      </div>
+      <div class="explain-demo">
+        <div class="flex-row"><div></div><div style="opacity:.65"></div><div style="opacity:.4"></div><div style="opacity:.2"></div></div>
+        <p style="font-size:11px;color:var(--gray2);font-family:var(--fm)">display:flex; gap:8px — hover each box to scale</p>
+        <div style="font-family:var(--fm);font-size:11px;color:var(--gray2);text-align:center">justify-content: center · align-items: center</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">Example — CSS Grid Layout</div>
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>CSS Grid — Two-Dimensional Layout</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p><strong>CSS Grid</strong> controls rows and columns simultaneously — perfect for page layouts, dashboards, and galleries. Use <code style="color:var(--yellow);font-family:var(--fm)">display: grid</code> to activate it.</p>
+        <p><code style="color:var(--yellow);font-family:var(--fm)">grid-template-columns: repeat(3, 1fr)</code> creates 3 equal columns. Items can span multiple columns using <code style="color:var(--yellow);font-family:var(--fm)">grid-column: span 2</code>. The <code style="color:var(--yellow);font-family:var(--fm)">gap</code> property sets spacing between all cells.</p>
+        <p><strong>Rule of thumb:</strong> Use Grid for the overall page structure (header, sidebar, main, footer). Use Flexbox for aligning items within individual components (nav links, button rows).</p>
+      </div>
+      <div class="explain-demo">
+        <div class="grid-demo"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <p style="font-size:11px;color:var(--gray2);font-family:var(--fm)">grid-template-columns: repeat(3, 1fr); gap: 4px</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">Example — CSS Variables & Transitions</div>
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>CSS Custom Properties & Transitions</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p><strong>CSS Variables</strong> (Custom Properties) store reusable values. Defined once in <code style="color:var(--yellow);font-family:var(--fm)">:root { --accent: #F5C518; }</code> and used anywhere as <code style="color:var(--yellow);font-family:var(--fm)">color: var(--accent)</code>. Change the value in one place and every element that uses it updates — essential for consistent theming.</p>
+        <p><strong>Transitions</strong> animate property changes smoothly. <code style="color:var(--yellow);font-family:var(--fm)">transition: all 0.3s ease</code> means any change (on hover, focus, or class toggle) will animate over 0.3 seconds instead of snapping instantly — creating a polished, professional feel.</p>
+        <p><strong>Example:</strong> The three boxes on the right all use transitions. Hover each one to see a different effect — border-radius morph, scale + glow, and colour fill.</p>
+      </div>
+      <div class="explain-demo">
+        <div class="var-bars"><div class="var-bar" style="width:90%"></div><div class="var-bar" style="width:60%;opacity:.7"></div><div class="var-bar" style="width:35%;opacity:.4"></div></div>
+        <div style="display:flex;gap:10px;margin-top:.5rem">
+          <div style="width:44px;height:44px;background:var(--yellow);opacity:.9;transition:all .3s ease;cursor:pointer;" onmouseenter="this.style.borderRadius='50%'" onmouseleave="this.style.borderRadius='0'"></div>
+          <div style="width:44px;height:44px;background:var(--dark4);border:1px solid var(--dark3);transition:all .3s ease;cursor:pointer;" onmouseenter="this.style.borderColor='var(--yellow)';this.style.transform='scale(1.15)'" onmouseleave="this.style.borderColor='var(--dark3)';this.style.transform='scale(1)'"></div>
+          <div style="width:44px;height:44px;background:var(--dark4);transition:all .3s ease;cursor:pointer;" onmouseenter="this.style.background='var(--yellow)'" onmouseleave="this.style.background='var(--dark4)'"></div>
+        </div>
+        <p style="font-size:11px;color:var(--gray2);font-family:var(--fm)">hover each box — transition: all 0.3s ease</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">CSS Code Reference</div>
+  <div class="code-block">
+<span class="cm">/* 1. CSS Variables */</span>
+<span class="kw">:root</span> {
+  <span class="attr">--accent</span>: <span class="val">#F5C518</span>;
+  <span class="attr">--dark</span>: <span class="val">#0a0a0a</span>;
+}
+
+<span class="cm">/* 2. Flexbox nav */</span>
+<span class="kw">.nav</span> {
+  <span class="attr">display</span>: <span class="val">flex</span>;
+  <span class="attr">justify-content</span>: <span class="val">space-between</span>;
+  <span class="attr">align-items</span>: <span class="val">center</span>;
+  <span class="attr">gap</span>: <span class="val">1rem</span>;
+}
+
+<span class="cm">/* 3. CSS Grid layout */</span>
+<span class="kw">.grid</span> {
+  <span class="attr">display</span>: <span class="val">grid</span>;
+  <span class="attr">grid-template-columns</span>: <span class="val">repeat(3, 1fr)</span>;
+  <span class="attr">gap</span>: <span class="val">1.5rem</span>;
+}
+
+<span class="cm">/* 4. Hover transition */</span>
+<span class="kw">.card</span> { <span class="attr">transition</span>: <span class="val">transform 0.3s ease, border-color 0.3s</span>; }
+<span class="kw">.card:hover</span> {
+  <span class="attr">transform</span>: <span class="val">translateY(-6px)</span>;
+  <span class="attr">border-color</span>: <span class="val">var(--accent)</span>;
+}
+  </div>
+</div>
+</div>
+
+<!-- ═══ BOOTSTRAP ═══ -->
+<div id="page-bootstrap" class="page">
+<div class="inner">
+  <div class="section-label">04 — CSS Framework</div>
+  <h2 class="section-title">BOOTSTRAP FRAMEWORK</h2>
+  <p class="section-desc">Bootstrap is the world's most popular open-source CSS framework, originally created by Twitter. It provides a comprehensive library of <strong style="color:var(--white)">pre-built components, a 12-column responsive grid, and utility classes</strong> — allowing developers to build professional, mobile-ready websites rapidly without writing CSS from scratch.</p>
+
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>Why Use Bootstrap?</h4></div>
+    <div class="explain-body full">
+      <div class="explain-text">
+        <p>Writing CSS for every project from scratch is extremely time-consuming. Bootstrap solves this by providing a consistent, well-tested design system. You simply apply pre-defined class names to HTML elements and Bootstrap handles the styling.</p>
+        <p>Bootstrap is <strong>mobile-first</strong> — styles target small screens by default and scale up for larger screens using breakpoints (sm, md, lg, xl, xxl). This aligns with modern best practices: over 60% of web traffic comes from mobile.</p>
+        <p>To use Bootstrap, add one line to your HTML <code style="color:var(--yellow);font-family:var(--fm)">&lt;head&gt;</code>: <code style="color:var(--yellow);font-family:var(--fm)">&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css" rel="stylesheet"&gt;</code>. No setup or build tools needed — start using classes immediately.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bs-grid">
+    <div class="bs-card">
+      <div class="bs-card-icon">GRID</div>
+      <h3>12-Column Grid System</h3>
+      <p>Bootstrap divides the page into 12 equal columns. Assign spans using classes like <code style="color:var(--yellow);font-family:var(--fm)">col-4</code> (4 of 12 = one third). Breakpoint suffixes like <code style="color:var(--yellow);font-family:var(--fm)">col-md-6</code> make columns responsive — half width on medium screens, full width on mobile automatically.</p>
+      <div class="col-row"><div class="col-blk" style="flex:4;background:rgba(245,197,24,.6)"></div><div class="col-blk" style="flex:8"></div></div>
+      <div class="col-row" style="margin-top:4px"><div class="col-blk" style="flex:6"></div><div class="col-blk" style="flex:6;background:rgba(245,197,24,.3)"></div></div>
+      <div class="col-row" style="margin-top:4px"><div class="col-blk" style="flex:3"></div><div class="col-blk" style="flex:3"></div><div class="col-blk" style="flex:3"></div><div class="col-blk" style="flex:3;background:rgba(245,197,24,.2)"></div></div>
+      <div class="tag-row"><span class="tag">col-4</span><span class="tag">col-md-6</span><span class="tag">col-sm-12</span><span class="tag">row</span></div>
+    </div>
+    <div class="bs-card">
+      <div class="bs-card-icon">COMP</div>
+      <h3>Pre-Built Components</h3>
+      <p>Bootstrap includes dozens of ready-to-use components: <strong style="color:var(--white)">navbars, buttons, cards, modals, dropdowns, alerts, badges, carousels, accordions</strong>, and more. All styled consistently and accessible. No custom CSS needed — just add the class name.</p>
+      <div class="bs-btn-row" style="margin-top:1rem">
+        <button class="bs-btn pri">btn-primary</button>
+        <button class="bs-btn out">btn-secondary</button>
+        <button class="bs-btn dan">btn-danger</button>
+      </div>
+      <div class="tag-row"><span class="tag">btn</span><span class="tag">card</span><span class="tag">modal</span><span class="tag">navbar</span><span class="tag">badge</span></div>
+    </div>
+    <div class="bs-card">
+      <div class="bs-card-icon">UTIL</div>
+      <h3>Utility Classes</h3>
+      <p>Bootstrap 5 includes utility classes for rapid styling without any custom CSS. <code style="color:var(--yellow);font-family:var(--fm)">mt-3</code> adds top margin, <code style="color:var(--yellow);font-family:var(--fm)">d-flex</code> enables flexbox, <code style="color:var(--yellow);font-family:var(--fm)">text-center</code> centres text, <code style="color:var(--yellow);font-family:var(--fm)">fw-bold</code> makes text bold, <code style="color:var(--yellow);font-family:var(--fm)">bg-dark</code> sets background.</p>
+      <div class="tag-row"><span class="tag">d-flex</span><span class="tag">mt-3</span><span class="tag">p-4</span><span class="tag">text-center</span><span class="tag">fw-bold</span><span class="tag">gap-2</span><span class="tag">rounded</span><span class="tag">shadow</span></div>
+    </div>
+  </div>
+
+  <div class="sub-heading">Example — Bootstrap Card & Grid</div>
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>Live Bootstrap-Style Example</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p>The example on the right shows a 3-column Bootstrap card layout. With Bootstrap classes, this layout is written as: wrap columns in a <code style="color:var(--yellow);font-family:var(--fm)">row</code>, give each card a <code style="color:var(--yellow);font-family:var(--fm)">col-md-4</code>, and apply <code style="color:var(--yellow);font-family:var(--fm)">card</code>, <code style="color:var(--yellow);font-family:var(--fm)">card-body</code>, <code style="color:var(--yellow);font-family:var(--fm)">card-title</code> classes.</p>
+        <p>On a tablet or phone, each card automatically expands to full width because <code style="color:var(--yellow);font-family:var(--fm)">col-md-4</code> only applies at medium breakpoints (≥768px). Below that, Bootstrap reverts to a single-column stacked layout with zero extra CSS.</p>
+        <p>This demonstrates how Bootstrap's responsive grid eliminates the need for custom media queries in most common layouts — saving hours of development time.</p>
+      </div>
+      <div class="explain-demo" style="flex-direction:column;gap:.6rem;align-items:stretch;padding:.75rem">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem">
+          <div style="background:var(--dark2);border:1px solid var(--dark4);padding:.75rem;border-radius:2px">
+            <div style="width:100%;height:32px;background:var(--dark4);border-radius:2px;margin-bottom:.5rem"></div>
+            <div style="font-family:var(--fc);font-size:13px;font-weight:600;color:var(--white);letter-spacing:.04em;margin-bottom:.3rem">HTML</div>
+            <div style="font-size:11px;color:var(--gray2)">Structure</div>
+          </div>
+          <div style="background:var(--dark2);border:1px solid var(--yellow);padding:.75rem;border-radius:2px">
+            <div style="width:100%;height:32px;background:rgba(245,197,24,.2);border-radius:2px;margin-bottom:.5rem"></div>
+            <div style="font-family:var(--fc);font-size:13px;font-weight:600;color:var(--white);letter-spacing:.04em;margin-bottom:.3rem">CSS</div>
+            <div style="font-size:11px;color:var(--gray2)">Styling</div>
+          </div>
+          <div style="background:var(--dark2);border:1px solid var(--dark4);padding:.75rem;border-radius:2px">
+            <div style="width:100%;height:32px;background:var(--dark4);border-radius:2px;margin-bottom:.5rem"></div>
+            <div style="font-family:var(--fc);font-size:13px;font-weight:600;color:var(--white);letter-spacing:.04em;margin-bottom:.3rem">JS</div>
+            <div style="font-size:11px;color:var(--gray2)">Behaviour</div>
+          </div>
+        </div>
+        <p style="font-family:var(--fm);font-size:10px;color:var(--gray2);text-align:center">col-md-4 grid · card · card-body</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">Bootstrap Code Reference</div>
+  <div class="code-block">
+<span class="cm">&lt;!-- 1. Include Bootstrap CSS via CDN --&gt;</span>
+<span class="kw">&lt;</span><span class="tn">link</span> <span class="attr">href</span>=<span class="val">"https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css"</span> <span class="attr">rel</span>=<span class="val">"stylesheet"</span><span class="kw">&gt;</span>
+
+<span class="cm">&lt;!-- 2. Responsive 3-column grid --&gt;</span>
+<span class="kw">&lt;</span><span class="tn">div</span> <span class="attr">class</span>=<span class="val">"container"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;</span><span class="tn">div</span> <span class="attr">class</span>=<span class="val">"row g-3"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;</span><span class="tn">div</span> <span class="attr">class</span>=<span class="val">"col-12 col-md-4"</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;</span><span class="tn">div</span> <span class="attr">class</span>=<span class="val">"card bg-dark text-white"</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;</span><span class="tn">div</span> <span class="attr">class</span>=<span class="val">"card-body"</span><span class="kw">&gt;</span>
+          <span class="kw">&lt;</span><span class="tn">h5</span> <span class="attr">class</span>=<span class="val">"card-title"</span><span class="kw">&gt;</span>HTML<span class="kw">&lt;/</span><span class="tn">h5</span><span class="kw">&gt;</span>
+          <span class="kw">&lt;</span><span class="tn">p</span> <span class="attr">class</span>=<span class="val">"card-text"</span><span class="kw">&gt;</span>Structure<span class="kw">&lt;/</span><span class="tn">p</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;/</span><span class="tn">div</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;/</span><span class="tn">div</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;/</span><span class="tn">div</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;/</span><span class="tn">div</span><span class="kw">&gt;</span>
+<span class="kw">&lt;/</span><span class="tn">div</span><span class="kw">&gt;</span>
+
+<span class="cm">&lt;!-- 3. Utility classes --&gt;</span>
+<span class="kw">&lt;</span><span class="tn">button</span> <span class="attr">class</span>=<span class="val">"btn btn-warning fw-bold mt-3 px-4"</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/</span><span class="tn">button</span><span class="kw">&gt;</span>
+  </div>
+</div>
+</div>
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<div id="page-js" class="page">
+<div class="inner">
+  <div class="section-label">05 — Programming & Interactivity</div>
+  <h2 class="section-title">JAVASCRIPT</h2>
+  <p class="section-desc">JavaScript (JS) is the programming language of the web. While HTML builds structure and CSS handles appearance, JavaScript adds <strong style="color:var(--white)">dynamic behaviour, logic, and interactivity</strong>. It runs directly in the browser and is the only language natively understood by all browsers worldwide.</p>
+
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>Core Concepts — Variables, Functions & Events</h4></div>
+    <div class="explain-body">
+      <div class="explain-text">
+        <p><strong>Variables</strong> store data. Modern JS uses <code style="color:var(--yellow);font-family:var(--fm)">let</code> (can change) and <code style="color:var(--yellow);font-family:var(--fm)">const</code> (cannot be reassigned). <strong>Functions</strong> are reusable blocks of code — declared with <code style="color:var(--yellow);font-family:var(--fm)">function name() {}</code> or as arrow functions: <code style="color:var(--yellow);font-family:var(--fm)">const greet = () => {}</code>.</p>
+        <p><strong>Events</strong> are things that happen in the browser — clicks, keypresses, form submissions. You "listen" for them using <code style="color:var(--yellow);font-family:var(--fm)">element.addEventListener('click', handler)</code>. When the event fires, your handler function runs — this is how all interactive web pages work.</p>
+        <p><strong>The DOM</strong> (Document Object Model) is a live tree of all HTML elements. JavaScript can find any element using <code style="color:var(--yellow);font-family:var(--fm)">document.querySelector()</code>, then change its text, style, classes, or attributes in real time — without reloading the page.</p>
+      </div>
+      <div class="explain-demo">
+        <div style="font-family:var(--fm);font-size:12px;line-height:2.1;color:#ccc;width:100%">
+          <div><span style="color:var(--yellow)">const</span> btn = document.<span style="color:#7dd3fc">querySelector</span>(<span style="color:#86efac">'#btn'</span>);</div>
+          <div><span style="color:var(--yellow)">let</span> count = <span style="color:#86efac">0</span>;</div>
+          <div>btn.<span style="color:#7dd3fc">addEventListener</span>(<span style="color:#86efac">'click'</span>, () => {</div>
+          <div style="padding-left:1rem">count<span style="color:var(--yellow)">++</span>;</div>
+          <div style="padding-left:1rem">btn.textContent = <span style="color:#86efac">`Clicked ${count}x`</span>;</div>
+          <div>});</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">Live Interactive Examples</div>
+  <div class="js-grid">
+    <div class="js-demo">
+      <div class="demo-label"><div class="dot"></div> Example 1 — DOM Counter</div>
+      <div class="js-preview">
+        <div id="counter-val">0</div>
+        <div class="counter-btns">
+          <button onclick="changeCount(-1)" title="Decrease">−</button>
+          <button onclick="changeCount(1)" title="Increase">+</button>
+          <button onclick="document.getElementById('counter-val').textContent='0'" title="Reset">↺</button>
+        </div>
+        <p style="font-size:12px;color:var(--gray2);font-family:var(--fm);text-align:center">Reads & updates textContent via getElementById<br>Click − + ↺ to interact</p>
+      </div>
+    </div>
+    <div class="js-demo">
+      <div class="demo-label"><div class="dot"></div> Example 2 — Dynamic Style Change</div>
+      <div class="js-preview">
+        <div id="color-box"></div>
+        <div class="color-btns">
+          <button style="background:#F5C518" onclick="changeColor('#F5C518')"></button>
+          <button style="background:#ef4444" onclick="changeColor('#ef4444')"></button>
+          <button style="background:#22c55e" onclick="changeColor('#22c55e')"></button>
+          <button style="background:#3b82f6" onclick="changeColor('#3b82f6')"></button>
+          <button style="background:#a855f7" onclick="changeColor('#a855f7')"></button>
+        </div>
+        <p style="font-size:12px;color:var(--gray2);font-family:var(--fm);text-align:center">element.style.background changes in real time<br>Click a colour dot to update the box</p>
+      </div>
+    </div>
+    <div class="js-demo">
+      <div class="demo-label"><div class="dot"></div> Example 3 — To-Do List</div>
+      <div class="js-preview">
+        <ul id="todo-list">
+          <li onclick="this.classList.toggle('done')">Learn HTML fundamentals</li>
+          <li onclick="this.classList.toggle('done')">Master CSS layouts</li>
+          <li onclick="this.classList.toggle('done')">Study Bootstrap grid</li>
+        </ul>
+        <div class="todo-row">
+          <input type="text" id="todo-input" placeholder="Add a task..."/>
+          <button onclick="addTodo()">Add</button>
+        </div>
+        <p style="font-size:12px;color:var(--gray2);font-family:var(--fm);margin-top:.3rem;text-align:center">createElement · appendChild · classList.toggle<br>Click a task to mark done · Enter or Add to create</p>
+      </div>
+    </div>
+    <div class="js-demo">
+      <div class="demo-label"><div class="dot"></div> Example 4 — Live Fetch API</div>
+      <div class="js-preview">
+        <div id="fetch-result"><span class="fetch-name">— —</span><span class="fetch-sub">Click the button to fetch real live data from an external API</span></div>
+        <button class="fetch-btn" onclick="loadUser()">Fetch Random User →</button>
+        <p style="font-size:12px;color:var(--gray2);font-family:var(--fm);margin-top:.3rem;text-align:center">async/await · fetch() · JSON parsing<br>Loads real data from randomuser.me API</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="explain-block">
+    <div class="explain-header"><div class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--yellow)"></div><h4>Async JavaScript — Fetch API & Promises Explained</h4></div>
+    <div class="explain-body full">
+      <div class="explain-text">
+        <p>Modern web apps constantly load data from servers — user profiles, posts, product listings — without reloading the entire page. This is done with <strong>asynchronous JavaScript</strong>. Instead of blocking the browser while waiting for a server response, async code continues running and processes the result when it arrives.</p>
+        <p>The <strong>Fetch API</strong> makes HTTP requests. <code style="color:var(--yellow);font-family:var(--fm)">fetch(url)</code> returns a <strong>Promise</strong> — a placeholder for a future value. Using <code style="color:var(--yellow);font-family:var(--fm)">async/await</code> makes Promises readable: <code style="color:var(--yellow);font-family:var(--fm)">const res = await fetch(url)</code> pauses execution until the response arrives, then <code style="color:var(--yellow);font-family:var(--fm)">const data = await res.json()</code> parses the JSON body.</p>
+        <p><strong>Example 4 above</strong> fetches a random user from the public <code style="color:var(--yellow);font-family:var(--fm)">randomuser.me</code> API — demonstrating a real network request, JSON parsing, and a DOM update all working together. This is exactly how modern front-ends communicate with back-end REST APIs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-heading">JavaScript Code Reference</div>
+  <div class="code-block">
+<span class="cm">// 1. Variables & Functions (ES6+)</span>
+<span class="kw">const</span> greeting = <span class="val">`Hello, Rohit!`</span>;
+<span class="kw">let</span> count = <span class="val">0</span>;
+<span class="kw">const</span> <span class="attr">increment</span> = () => count<span class="kw">++</span>;
+
+<span class="cm">// 2. DOM Manipulation</span>
+<span class="kw">const</span> box = document.<span class="attr">getElementById</span>(<span class="val">'myBox'</span>);
+box.textContent = <span class="val">'Updated!'</span>;
+box.style.color = <span class="val">'#F5C518'</span>;
+box.classList.<span class="attr">add</span>(<span class="val">'active'</span>);
+
+<span class="cm">// 3. Event Listener</span>
+document.<span class="attr">querySelector</span>(<span class="val">'#btn'</span>).<span class="attr">addEventListener</span>(<span class="val">'click'</span>, () => {
+  console.<span class="attr">log</span>(<span class="val">'Button clicked!'</span>);
+});
+
+<span class="cm">// 4. Async Fetch with async/await + error handling</span>
+<span class="kw">async function</span> <span class="attr">getUser</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> fetch(<span class="val">'https://randomuser.me/api/'</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="attr">json</span>();
+    <span class="kw">const</span> { first, last } = data.results[<span class="val">0</span>].name;
+    document.<span class="attr">querySelector</span>(<span class="val">'#name'</span>).textContent = <span class="val">`${first} ${last}`</span>;
+  } <span class="kw">catch</span> (err) {
+    console.<span class="attr">error</span>(<span class="val">'Failed:'</span>, err);
+  }
+}
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Rohit Thapa Soti — ePortfolio</div>
+</footer>
+
+<script>
+var displayMap = { home:'flex', fullstack:'block', html:'block', css:'block', bootstrap:'block', js:'block' };
+
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(function(p){ p.style.display='none'; });
+  document.querySelectorAll('.nav-links button').forEach(function(b){ b.classList.remove('active'); });
+  var pg = document.getElementById('page-' + id);
+  if(pg) pg.style.display = displayMap[id] || 'block';
+  if(btn) btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// Init
+document.querySelectorAll('.page').forEach(function(p){ p.style.display='none'; });
+var hp = document.getElementById('page-home');
+if(hp) hp.style.display='flex';
+
+function changeCount(n){
+  var el=document.getElementById('counter-val');
+  if(el) el.textContent=parseInt(el.textContent)+n;
+}
+function changeColor(c){
+  var el=document.getElementById('color-box');
+  if(el) el.style.background=c;
+}
+function addTodo(){
+  var input=document.getElementById('todo-input');
+  if(!input||!input.value.trim()) return;
+  var li=document.createElement('li');
+  li.textContent=input.value.trim();
+  li.onclick=function(){ this.classList.toggle('done'); };
+  var list=document.getElementById('todo-list');
+  if(list) list.appendChild(li);
+  input.value='';
+}
+var ti=document.getElementById('todo-input');
+if(ti){ ti.addEventListener('keydown',function(e){ if(e.key==='Enter') addTodo(); }); }
+
+async function loadUser(){
+  var el=document.getElementById('fetch-result');
+  if(!el) return;
+  var nameEl=el.querySelector('.fetch-name');
+  if(nameEl) nameEl.textContent='Loading...';
+  try{
+    var res=await fetch('https://randomuser.me/api/');
+    var data=await res.json();
+    var u=data.results[0];
+    if(nameEl) nameEl.textContent=u.name.first+' '+u.name.last;
+    var sub=el.querySelector('.fetch-sub');
+    if(sub) sub.textContent=u.email+' · '+u.location.country;
+  } catch(err){
+    if(nameEl) nameEl.textContent='Error — check connection';
+  }
+}
+</script>
+</body>
+</html>
